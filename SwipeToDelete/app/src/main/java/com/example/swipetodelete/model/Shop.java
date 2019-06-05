@@ -3,14 +3,24 @@ package com.example.swipetodelete.model;
 import java.util.ArrayList;
 
 public class Shop {
+    private int picture;
     public String name;
     private ArrayList<Drink> menu;
 
     private ArrayList<Shop> shops;
 
-    public Shop(String name, ArrayList<Drink> menu){
+    public Shop(String name,int picture, ArrayList<Drink> menu){
         this.name = name;
+        this.picture = picture;
         this.menu = menu;
+    }
+
+    public int getPicture() {
+        return picture;
+    }
+
+    public void setPicture(int picture) {
+        this.picture = picture;
     }
 
     public String getName() {

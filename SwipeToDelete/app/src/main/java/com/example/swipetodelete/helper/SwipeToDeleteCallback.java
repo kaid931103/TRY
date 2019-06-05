@@ -75,7 +75,6 @@ abstract public class SwipeToDeleteCallback extends ItemTouchHelper.Callback {
         int deleteIconRight = itemView.getRight() - deleteIconMargin;
         int deleteIconBottom = deleteIconTop + intrinsicHeight;
 
-
         deleteDrawable.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom);
         deleteDrawable.draw(c);
 

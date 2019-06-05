@@ -9,6 +9,7 @@
     <!--toolbar_title-->
     <string name="sort">sort</string>
     <string name="option">option</string>
+    <string name="setting">setting</string>
 
     <!--imageView_description-->
     <string name="description">description</string>

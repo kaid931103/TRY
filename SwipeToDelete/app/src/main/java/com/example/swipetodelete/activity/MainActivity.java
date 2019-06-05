@@ -16,9 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.swipetodelete.R;
 import com.example.swipetodelete.adapter.RecyclerViewAdapter;
@@ -27,7 +27,6 @@ import com.example.swipetodelete.model.Drink;
 import com.example.swipetodelete.model.Shop;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -37,12 +36,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //ui
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter mAdapter;
     private CoordinatorLayout coordinatorLayout;
 
     //data
     private ArrayList<String> sortChoices = new ArrayList<>();
-    private List<Shop> list = new ArrayList<Shop>();
+    private List<Shop> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (menuItem.getItemId()) {
                     case R.id.am_tb_option:
                         break;
+                    case R.id.am_tb_setting:
+                        Intent intent = new Intent(MainActivity.this, MusicSettingActivity.class);
+                        startActivity(intent);
                 }
                 return false;
             }
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mlist.add(m4);
         mlist.add(m5);
         mlist.add(m6);
-        Shop m = new Shop("Milk Shop", mlist);
+        Shop m = new Shop("Milk Shop",R.drawable.milk_shop, mlist);
         list.add(m);
 
         ArrayList<Drink> clist = new ArrayList<>();
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clist.add(c5);
         clist.add(c6);
         clist.add(c7);
-        Shop c = new Shop("Coco", clist);
+        Shop c = new Shop("Coco",R.drawable.coco, clist);
         list.add(c);
 
         ArrayList<Drink> dlist = new ArrayList<>();
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dlist.add(d5);
         dlist.add(d6);
         dlist.add(d7);
-        Shop d = new Shop("DaYung's", dlist);
+        Shop d = new Shop("DaYung's",R.drawable.da_yung_s, dlist);
         list.add(d);
 
         ArrayList<Drink> flist = new ArrayList<>();
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         flist.add(f5);
         flist.add(f6);
         flist.add(f7);
-        Shop f = new Shop("Fifty Lan", flist);
+        Shop f = new Shop("Fifty Lan",R.drawable.fifty_lan, flist);
         list.add(f);
 
         ArrayList<Drink> tlist = new ArrayList<>();
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tlist.add(t5);
         tlist.add(t6);
         tlist.add(t7);
-        Shop t = new Shop("TigerSugar", tlist);
+        Shop t = new Shop("TigerSugar",R.drawable.tiger_sugar, tlist);
         list.add(t);
 
         ArrayList<Drink> qlist = new ArrayList<>();
@@ -197,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         qlist.add(q5);
         qlist.add(q6);
         qlist.add(q7);
-        Shop q = new Shop("Queenny", qlist);
+        Shop q = new Shop("Queenny",R.drawable.queenny, qlist);
         list.add(q);
 
         ArrayList<Drink> jlist = new ArrayList<>();
@@ -215,18 +216,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         jlist.add(j5);
         jlist.add(j6);
         jlist.add(j7);
-        Shop j = new Shop("Joly", jlist);
+        Shop j = new Shop("Joly",R.drawable.joly, jlist);
         list.add(j);
 
         Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
     }
 
+//    private void enableSwipeToDeleteAndUndo() {
+//        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+//                final int position = viewHolder.getAdapterPosition();
+//                final Shop item = list.get(position);
+//
+//                list.remove(item);
+//                Snackbar snackbar = Snackbar
+//                        .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
+//                snackbar.setAction("UNDO", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        list.add(item);
+//                        recyclerView.scrollToPosition(position);
+//                    }
+//                });
+//
+//                snackbar.setActionTextColor(Color.YELLOW);
+//                snackbar.show();
+//            }
+//        };
+//
+//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+//        itemTouchhelper.attachToRecyclerView(recyclerView);
+//        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
+//    }
+
     private void enableSwipeToDeleteAndUndo() {
         SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                final RecyclerViewAdapter mAdapter = (RecyclerViewAdapter) recyclerView.getAdapter();
                 final int position = viewHolder.getAdapterPosition();
-                final String item = mAdapter.getData().get(position);
+                assert mAdapter != null;
+                final Shop item = mAdapter.getData().get(position);
+                Log.d("xxx",String.valueOf(item));
 
                 mAdapter.removeItem(position);
 
@@ -246,9 +278,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
+
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
         itemTouchhelper.attachToRecyclerView(recyclerView);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -272,9 +306,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 }
                                             }
                                         });
-                                        break;
+                                        assert recyclerView.getAdapter() != null;
+                                        recyclerView.getAdapter().notifyDataSetChanged();                                        break;
                                     case "Z-A":
                                         Collections.reverse(list);
+                                        assert recyclerView.getAdapter() != null;
+                                        recyclerView.getAdapter().notifyDataSetChanged();
                                         break;
                                 }
                             }

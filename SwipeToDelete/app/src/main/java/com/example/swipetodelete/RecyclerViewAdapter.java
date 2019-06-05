@@ -14,9 +14,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static ArrayList<String> data;
 
-
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;

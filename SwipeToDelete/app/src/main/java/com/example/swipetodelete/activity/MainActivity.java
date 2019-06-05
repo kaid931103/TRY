@@ -1,6 +1,8 @@
 package com.example.swipetodelete.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -16,10 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.swipetodelete.R;
 import com.example.swipetodelete.adapter.RecyclerViewAdapter;
 import com.example.swipetodelete.helper.SwipeToDeleteCallback;
+import com.example.swipetodelete.model.Shop;
 
 import java.util.ArrayList;
 
@@ -31,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CoordinatorLayout coordinatorLayout;
 
     //data
-    private ArrayList<String> stringArrayList = new ArrayList<>();
+    private ArrayList<String> sortChoices = new ArrayList<>();
+    private ArrayList<Shop> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //function
         getPermissionsAudio();
-        populateRecyclerView();
+        initData();
         enableSwipeToDeleteAndUndo();
     }
 
@@ -76,19 +81,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void populateRecyclerView() {
-        stringArrayList.add("MilkShop");
-        stringArrayList.add("CoCo");
-        stringArrayList.add("DaYung's");
-        stringArrayList.add("Fifty Lan");
-        stringArrayList.add("TigerSugar");
-        stringArrayList.add("Queenny");
-        stringArrayList.add("Joly");
+    private void initData() {
+        sortChoices.add("A-Z");
+        sortChoices.add("Z-A");
 
-
-        mAdapter = new RecyclerViewAdapter(stringArrayList);
-        recyclerView.setAdapter(mAdapter);
-
+//        list.add("MilkShop");
+//        stringArrayList.add("CoCo");
+//        stringArrayList.add("DaYung's");
+//        stringArrayList.add("Fifty Lan");
+//        stringArrayList.add("TigerSugar");
+//        stringArrayList.add("Queenny");
+//        stringArrayList.add("Joly");
+//
+//        mAdapter = new RecyclerViewAdapter(stringArrayList);
+//        recyclerView.setAdapter(mAdapter);
     }
 
     private void enableSwipeToDeleteAndUndo() {
@@ -124,6 +130,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.am_tb_sort:
+                int size = sortChoices.size();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setItems(sortChoices.toArray(new String[size]), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String name = sortChoices.get(which);
+
+                                //update list sort
+                            }
+                        })
+                        .show();
                 break;
         }
     }

@@ -7,18 +7,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.swipetodelete.R;
 import com.example.swipetodelete.adapter.RecyclerViewAdapter;
@@ -37,10 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //ui
     private RecyclerView recyclerView;
     private CoordinatorLayout coordinatorLayout;
+    private RecyclerViewAdapter mAdapter;
 
     //data
     private ArrayList<String> sortChoices = new ArrayList<>();
-    private List<Shop> list = new ArrayList<>();
+    private ArrayList<Shop> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.am_tb_setting:
                         Intent intent = new Intent(MainActivity.this, MusicSettingActivity.class);
                         startActivity(intent);
+                        break;
                 }
                 return false;
             }
         });
+
         recyclerView.setAdapter(new RecyclerViewAdapter(this,list));
 
         //function
@@ -222,39 +228,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
     }
 
-//    private void enableSwipeToDeleteAndUndo() {
-//        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-//                final int position = viewHolder.getAdapterPosition();
-//                final Shop item = list.get(position);
-//
-//                list.remove(item);
-//                Snackbar snackbar = Snackbar
-//                        .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
-//                snackbar.setAction("UNDO", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        list.add(item);
-//                        recyclerView.scrollToPosition(position);
-//                    }
-//                });
-//
-//                snackbar.setActionTextColor(Color.YELLOW);
-//                snackbar.show();
-//            }
-//        };
-//
-//        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
-//        itemTouchhelper.attachToRecyclerView(recyclerView);
-//        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
-//    }
-
     private void enableSwipeToDeleteAndUndo() {
         SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                final RecyclerViewAdapter mAdapter = (RecyclerViewAdapter) recyclerView.getAdapter();
+                mAdapter = (RecyclerViewAdapter) recyclerView.getAdapter();
                 final int position = viewHolder.getAdapterPosition();
                 assert mAdapter != null;
                 final Shop item = mAdapter.getData().get(position);

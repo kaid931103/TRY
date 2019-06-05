@@ -3,16 +3,15 @@ package com.example.swipetodelete.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.swipetodelete.R;
+import com.example.swipetodelete.activity.ShopInforActivity;
 import com.example.swipetodelete.model.Shop;
 import com.squareup.picasso.Picasso;
 
@@ -22,9 +21,9 @@ import java.util.List;
 public class RecyclerViewAdapter extends CommonRVAdapter {
 
     //data
-    private List<Shop> list;
+    private ArrayList<Shop> list;
 
-    public RecyclerViewAdapter(Context context, List<Shop> list) {
+    public RecyclerViewAdapter(Context context, ArrayList<Shop> list) {
         super(context);
         this.list = list;
     }
@@ -32,11 +31,11 @@ public class RecyclerViewAdapter extends CommonRVAdapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(getInflater().inflate(R.layout.item_rv_drink, parent, false));
+        return new ViewHolder(getInflater().inflate(R.layout.item_rv_shop, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             final Shop item = list.get(position);
             final ViewHolder viewHolder = (ViewHolder) holder;
@@ -44,6 +43,15 @@ public class RecyclerViewAdapter extends CommonRVAdapter {
                     .load(item.getPicture())
                     .into(viewHolder.picture);
             viewHolder.name.setText(item.getName());
+
+            viewHolder.cd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent (view.getContext(), ShopInforActivity.class);
+                    intent.putExtra("drink",item);
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
@@ -52,7 +60,7 @@ public class RecyclerViewAdapter extends CommonRVAdapter {
         return list.size();
     }
 
-    public List<Shop> getData() {
+    public ArrayList<Shop> getData() {
         return list;
     }
 
@@ -68,11 +76,13 @@ public class RecyclerViewAdapter extends CommonRVAdapter {
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
+        CardView cd;
         ImageView picture;
         TextView name;
 
         ViewHolder(View v) {
             super(v);
+            cd = v.findViewById(R.id.card_view);
             picture = v.findViewById(R.id.iv_item_rv_picture);
             name = v.findViewById(R.id.tv_item_rv_name);
         }

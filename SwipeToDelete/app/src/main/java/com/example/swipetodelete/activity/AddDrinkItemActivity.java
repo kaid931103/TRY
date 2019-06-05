@@ -13,8 +13,8 @@ public class AddDrinkItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_drink_item);
 
-        TextView tv1=(TextView) findViewById(R.id.text_view_1);
-        TextView tv2=(TextView) findViewById(R.id.text_view_2);
+        TextView tv1 = findViewById(R.id.text_view_1);
+        TextView tv2 = findViewById(R.id.text_view_2);
 
         tv1.setText("來回答我問題");
         tv2.setText("你最歡哪一家飲料店?");

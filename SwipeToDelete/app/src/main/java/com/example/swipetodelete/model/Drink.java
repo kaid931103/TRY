@@ -1,8 +1,11 @@
 package com.example.swipetodelete.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Drink {
+public class Drink implements Parcelable {
     private String drinkName;
     private String midPrice;
     private String bigPrice;
@@ -14,6 +17,29 @@ public class Drink {
         this.midPrice = midPrice;
         this.bigPrice = bigPrice;
     }
+
+    public Drink(){
+        drinks = new ArrayList<>();
+    }
+
+    private Drink(Parcel in) {
+        drinkName = in.readString();
+        midPrice = in.readString();
+        bigPrice = in.readString();
+        drinks = in.createTypedArrayList(Drink.CREATOR);
+    }
+
+    public static final Creator<Drink> CREATOR = new Creator<Drink>() {
+        @Override
+        public Drink createFromParcel(Parcel in) {
+            return new Drink(in);
+        }
+
+        @Override
+        public Drink[] newArray(int size) {
+            return new Drink[size];
+        }
+    };
 
     public String getDrinkName() {
         return drinkName;
@@ -45,5 +71,17 @@ public class Drink {
 
     public void setDrinks(ArrayList<Drink> drinks) {
         this.drinks = drinks;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(drinkName);
+        dest.writeString(midPrice);
+        dest.writeString(bigPrice);
     }
 }

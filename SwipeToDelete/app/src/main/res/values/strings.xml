@@ -13,4 +13,7 @@
 
     <!--imageView_description-->
     <string name="description">description</string>
+
+    <!--information-->
+    <string name="information">詳細資訊</string>
 </resources>

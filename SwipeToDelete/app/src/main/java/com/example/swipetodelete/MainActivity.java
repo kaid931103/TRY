@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         getPermissionsAudio();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.am_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.am_rv);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         populateRecyclerView();

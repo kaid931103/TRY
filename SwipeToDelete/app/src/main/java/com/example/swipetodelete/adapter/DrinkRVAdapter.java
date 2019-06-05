@@ -36,8 +36,8 @@ public class DrinkRVAdapter extends CommonRVAdapter{
             final Drink item = list.get(position);
             final ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.name.setText(item.getDrinkName());
-            viewHolder.midPrice.setText(item.getMidPrice());
-            viewHolder.bigPrice.setText(item.getBigPrice());
+            viewHolder.midPrice.setText("M:" + item.getMidPrice());
+            viewHolder.bigPrice.setText("L:" + item.getBigPrice());
         }
     }
 

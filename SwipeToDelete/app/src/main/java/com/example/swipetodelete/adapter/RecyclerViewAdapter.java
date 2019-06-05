@@ -1,5 +1,6 @@
 package com.example.swipetodelete.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -35,7 +36,7 @@ public class RecyclerViewAdapter extends CommonRVAdapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof ViewHolder) {
             final Shop item = list.get(position);
             final ViewHolder viewHolder = (ViewHolder) holder;
@@ -48,7 +49,7 @@ public class RecyclerViewAdapter extends CommonRVAdapter {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent (view.getContext(), ShopInforActivity.class);
-                    intent.putExtra("drink",item);
+                    intent.putExtra("drink", position);
                     view.getContext().startActivity(intent);
                 }
             });

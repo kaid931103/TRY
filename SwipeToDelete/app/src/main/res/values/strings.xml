@@ -5,4 +5,11 @@
     <string name="action_add">Add</string>
     <string name="drink_name_hint">飲料店名字</string>
     <string name="add_button_text">Add</string>
+
+    <!--toolbar_title-->
+    <string name="sort">sort</string>
+    <string name="option">option</string>
+
+    <!--imageView_description-->
+    <string name="description">description</string>
 </resources>

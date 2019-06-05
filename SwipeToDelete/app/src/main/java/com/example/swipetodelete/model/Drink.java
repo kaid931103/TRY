@@ -9,6 +9,12 @@ public class Drink {
 
     private ArrayList<Drink> drinks;
 
+    public Drink(String drinkName, String midPrice, String bigPrice){
+        this.drinkName = drinkName;
+        this.midPrice = midPrice;
+        this.bigPrice = bigPrice;
+    }
+
     public String getDrinkName() {
         return drinkName;
     }

@@ -17,11 +17,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.TooManyListenersException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     //ui
     private RecyclerView recyclerView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         getPermissionsAudio();
 
         //ui
+        findViewById(R.id.am_tb_sort).setOnClickListener(this);
         recyclerView = findViewById(R.id.am_rv);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
         FloatingActionButton fab = findViewById(R.id.am_fab);
@@ -51,14 +53,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Toolbar tb = findViewById(R.id.am_tb);
-        tb.setTitle("飲料店");
         tb.inflateMenu(R.menu.am_tb_menu);
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch(menuItem.getItemId()){
-                    case R.id.am_tb_sort:
-                        break;
                     case R.id.am_tb_option:
                         break;
                 }
@@ -175,4 +174,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.am_tb_sort:
+
+        }
+    }
 }

@@ -19,6 +19,21 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?actionBarSize">
 
+            <Button
+                android:id="@+id/am_tb_sort"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bt_selector_sort"
+                android:contentDescription="@string/description"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="@string/app_name"
+                android:textSize="20sp"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
         </android.support.v7.widget.Toolbar>
 
         <android.support.v7.widget.RecyclerView

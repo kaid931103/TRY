@@ -3,14 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/am_tb_sort"
-        android:icon="@drawable/ic_sort"
-        android:title="@string/sort"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/am_tb_option"
-        android:icon="@drawable/ic_option"
         android:title="@string/option"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="collapseActionView" />
 </menu>

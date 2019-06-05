@@ -1,8 +1,10 @@
-package com.example.swipetodelete;
+package com.example.swipetodelete.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.swipetodelete.R;
 
 public class AddDrinkItemActivity extends AppCompatActivity {
 

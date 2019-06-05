@@ -1,4 +1,4 @@
-package com.example.swipetodelete;
+package com.example.swipetodelete.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,13 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+
+import com.example.swipetodelete.R;
+import com.example.swipetodelete.adapter.RecyclerViewAdapter;
+import com.example.swipetodelete.helper.SwipeToDeleteCallback;
 
 import java.util.ArrayList;
-import java.util.TooManyListenersException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,9 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //getPermission
-        getPermissionsAudio();
 
         //ui
         findViewById(R.id.am_tb_sort).setOnClickListener(this);
@@ -66,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         //function
+        getPermissionsAudio();
         populateRecyclerView();
         enableSwipeToDeleteAndUndo();
     }
@@ -77,52 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent1 = new Intent(MainActivity.this, Setting.class);
-                startActivity(intent1);
-                return true;
-            case R.id.action_sort:
-                Intent intent2 = new Intent(MainActivity.this, Sort.class);
-                startActivity(intent2);
-                return true;
-            case R.id.action_add:
-                Intent intent3 = new Intent(MainActivity.this, Add.class);
-                startActivity(intent3);
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /*  int id = item.getItemId();
-      if (id == R.id.action_settings) {
-
-          Intent intent1 = new Intent(MainActivity.this, Sort.class);
-          startActivity(intent1);
-          return true;
-      }
-          if (id == R.id.action_sort) {
-              Intent intent2 = new Intent(MainActivity.this, Sort.class);
-              startActivity(intent2);
-              return true;
-          }
-        if (id == R.id.action_add) {
-          Intent intent3=new Intent(MainActivity.this,Add.class);
-          startActivity(intent3);
-          return true;
-      }
-      return super.onOptionsItemSelected(item);
-  }
-*/
     private void populateRecyclerView() {
         stringArrayList.add("MilkShop");
         stringArrayList.add("CoCo");
@@ -136,20 +89,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new RecyclerViewAdapter(stringArrayList);
         recyclerView.setAdapter(mAdapter);
 
-
     }
 
     private void enableSwipeToDeleteAndUndo() {
         SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
-
                 final int position = viewHolder.getAdapterPosition();
                 final String item = mAdapter.getData().get(position);
 
                 mAdapter.removeItem(position);
-
 
                 Snackbar snackbar = Snackbar
                         .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
@@ -164,21 +113,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
-
             }
         };
-
 
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
         itemTouchhelper.attachToRecyclerView(recyclerView);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.am_tb_sort:
-
+                break;
         }
     }
 }

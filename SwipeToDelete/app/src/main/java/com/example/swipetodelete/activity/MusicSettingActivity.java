@@ -1,16 +1,16 @@
-package com.example.swipetodelete;
-
-
-
+package com.example.swipetodelete.activity;
 
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.swipetodelete.R;
+
 import java.io.IOException;
 
-public class Setting extends AppCompatActivity {
+public class MusicSettingActivity extends AppCompatActivity {
 
     private Button play,pause;
     private MediaPlayer mediaPlayer;

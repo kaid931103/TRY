@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView recyclerView;
     private CoordinatorLayout coordinatorLayout;
     private RecyclerViewAdapter mAdapter;
+    private DAOShop shopData;
 
     //data
     private ArrayList<String> sortChoices = new ArrayList<>();
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //data
         initMenu();
         // 建立資料庫物件
-        DAOShop shopData = new DAOShop(getApplicationContext());
+        shopData = new DAOShop(getApplicationContext());
         if (shopData.getCount() == 0) {
             shopData.initData();
         }
@@ -119,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("xxx", String.valueOf(item));
 
                 mAdapter.removeItem(position);
+                shopData.delete(position);
+
 
                 Snackbar snackbar = Snackbar
                         .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);

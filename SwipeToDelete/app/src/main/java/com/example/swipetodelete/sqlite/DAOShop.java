@@ -60,7 +60,7 @@ public class DAOShop {
     // 刪除參數指定編號的資料
     public boolean delete(long id) {
         // 設定條件為編號，格式為「欄位名稱=資料」
-        String where = KEY_ID + "=" + id;
+        String where = String.valueOf(id);
         // 刪除指定編號資料並回傳刪除是否成功
         return db.delete(TABLE_NAME, where, null) > 0;
     }

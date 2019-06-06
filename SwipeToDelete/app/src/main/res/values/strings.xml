@@ -23,4 +23,5 @@
     <string name="drink_name">飲料名稱</string>
     <string name="mid_price">中杯價錢</string>
     <string name="big_price">大杯價錢</string>
+    <string name="textview">請問Milk Shop的珍珠紅茶拿鐵大奔的錢錢是多少?</string>
 </resources>

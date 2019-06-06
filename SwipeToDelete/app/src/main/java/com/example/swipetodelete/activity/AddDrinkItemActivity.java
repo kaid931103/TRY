@@ -31,7 +31,7 @@ public class AddDrinkItemActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_drink_item);
 
-        int position = getIntent().getIntExtra("position", 0);
+        position = getIntent().getIntExtra("position", 0);
 
         //ui
         name = findViewById(R.id.aadi_et_name);
@@ -53,7 +53,7 @@ public class AddDrinkItemActivity extends AppCompatActivity implements View.OnCl
             case R.id.aadi_bt_ok:
                 Drink drink = new Drink(position, name.getText().toString(), midPrice.getText().toString(), bigPrice.getText().toString());
                 daoDrink.insert(drink);
-                Intent intent = new Intent(this, ShopInforActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
         }

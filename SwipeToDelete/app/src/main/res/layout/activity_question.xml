@@ -1,27 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.QuestionActivity">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/text_view_1"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        tools:ignore="MissingConstraints">
 
-            android:text="textview1" />
-        <TextView
-            android:id="@+id/text_view_2"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="textview2" />
-    </LinearLayout>
+        <Button
+            android:id="@+id/aq_bt_back"
+            android:layout_width="47.5dp"
+            android:layout_height="47.5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/bt_selector_back" />
 
-</android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/textview" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sex_rg"
+        android:orientation="horizontal">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$35"
+            android:id="@+id/rb01"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$45"
+            android:id="@+id/rb02"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$55"
+            android:id="@+id/rb03"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$65"
+            android:id="@+id/rb04"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/ok_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#fff"
+        android:background="@drawable/tv_ok"
+        android:text="OK" />
+</LinearLayout>

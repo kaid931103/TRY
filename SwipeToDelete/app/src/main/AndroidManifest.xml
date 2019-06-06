@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MusicSettingActivity" />
-        <activity android:name=".activity.AddDrinkItemActivity" />
+        <activity android:name=".activity.QuestionActivity" />
         <activity android:name=".activity.ShopInforActivity" />
     </application>
 

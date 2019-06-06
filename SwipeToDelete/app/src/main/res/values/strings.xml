@@ -10,10 +10,17 @@
     <string name="sort">sort</string>
     <string name="add_new_shop">新增店家</string>
     <string name="setting">setting</string>
+    <string name="add_new_drink">新增飲料</string>
 
     <!--imageView_description-->
     <string name="description">description</string>
 
     <!--information-->
     <string name="information">詳細資訊</string>
+
+    <!--edit_text_hint-->
+    <string name="shop_name">店家名稱</string>
+    <string name="drink_name">飲料名稱</string>
+    <string name="mid_price">中杯價錢</string>
+    <string name="big_price">大杯價錢</string>
 </resources>

@@ -34,6 +34,7 @@ public class ShopInforActivity extends AppCompatActivity implements View.OnClick
         //ui
         rv = findViewById(R.id.asi_rv);
         findViewById(R.id.asi_bt_back).setOnClickListener(this);
+        findViewById(R.id.asi_bt_add).setOnClickListener(this);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new DrinkRVAdapter(this, list.get(position).getMenu()));
         assert rv.getAdapter() != null;

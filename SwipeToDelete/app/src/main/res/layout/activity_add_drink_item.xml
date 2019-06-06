@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.AddDrinkItemActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/aadi_bt_back"
+            android:layout_width="47.5dp"
+            android:layout_height="47.5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/bt_selector_back" />
+
+        <TextView
+            android:id="@+id/aadi_tv_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/add_new_drink"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
+            tools:ignore="RtlSymmetry" />
+
+        <Button
+            android:id="@+id/aadi_bt_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            android:background="@drawable/bt_select_ok"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/aadi_et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/drink_name"
+                android:maxLines="1"
+                tools:ignore="Autofill,TextFields" />
+
+            <EditText
+                android:id="@+id/aadi_et_mid_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/mid_price"
+                android:maxLines="1"
+                tools:ignore="Autofill,TextFields" />
+
+            <EditText
+                android:id="@+id/aadi_et_big_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/big_price"
+                android:maxLines="1"
+                tools:ignore="Autofill,TextFields" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

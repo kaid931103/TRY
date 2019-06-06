@@ -11,29 +11,33 @@ import com.example.swipetodelete.model.Shop;
 
 import java.util.ArrayList;
 
-public class DAOShop {
+public class DAODrink {
     // 表格名稱
-    public static final String TABLE_NAME = "Shop";
+    public static final String TABLE_NAME = "Drink";
 
     // 編號表格欄位名稱，固定不變
     private static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
+    private static final String SHOP_COLUMN = "shop";
     private static final String NAME_COLUMN = "name";
-    private static final String PICTURE_COLUMN = "picture";
+    private static final String MIDPRICE_COLUMN = "midPrice";
+    private static final String BIGPRICE_COLUMN = "bigPrice";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ( " +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    SHOP_COLUMN + "TEXT NOT NULL, " +
                     NAME_COLUMN + " TEXT NOT NULL, " +
-                    PICTURE_COLUMN + " INTEGER NOT NULL )";
+                    MIDPRICE_COLUMN + "TEXT NOT NULL," +
+                    BIGPRICE_COLUMN + "TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
 
     // 建構子，一般的應用都不需要修改
-    public DAOShop(Context context) {
+    public DAODrink(Context context) {
         db = DBHelper.getDatabase(context);
     }
 
@@ -43,14 +47,16 @@ public class DAOShop {
     }
 
     // 新增參數指定的物件
-    public boolean insert(Shop item) {
+    public boolean insert(Shop item, int position) {
         // 建立準備新增資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(NAME_COLUMN, item.getName());
-        cv.put(PICTURE_COLUMN, item.getPicture());
+        cv.put(SHOP_COLUMN, item.getName());
+        cv.put(NAME_COLUMN, item.getMenu().get(position).getDrinkName());
+        cv.put(MIDPRICE_COLUMN, item.getMenu().get(position).getMidPrice());
+        cv.put(BIGPRICE_COLUMN, item.getMenu().get(position).getBigPrice());
 
         return db.insert(TABLE_NAME, null, cv) > 0;
     }

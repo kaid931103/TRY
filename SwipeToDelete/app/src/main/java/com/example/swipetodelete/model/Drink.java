@@ -18,10 +18,6 @@ public class Drink implements Parcelable {
         this.bigPrice = bigPrice;
     }
 
-    public Drink(){
-        drinks = new ArrayList<>();
-    }
-
     private Drink(Parcel in) {
         drinkName = in.readString();
         midPrice = in.readString();

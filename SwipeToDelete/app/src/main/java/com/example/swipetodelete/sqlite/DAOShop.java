@@ -6,7 +6,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.swipetodelete.helper.DBHelper;
+import com.example.swipetodelete.R;
+import com.example.swipetodelete.helper.ShopDBHelper;
+import com.example.swipetodelete.model.Drink;
 import com.example.swipetodelete.model.Shop;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class DAOShop {
 
     // 建構子，一般的應用都不需要修改
     public DAOShop(Context context) {
-        db = DBHelper.getDatabase(context);
+        db = ShopDBHelper.getDatabase(context);
     }
 
     // 關閉資料庫，一般的應用都不需要修改
@@ -135,5 +137,37 @@ public class DAOShop {
             result = cursor.getInt(0);
         }
         return result;
+    }
+
+    public void initData() {
+
+        //data
+        ArrayList<Drink> mlist = new ArrayList<>();
+        Shop m = new Shop("Milk Shop", R.drawable.milk_shop, mlist);
+        insert(m);
+
+        ArrayList<Drink> clist = new ArrayList<>();
+        Shop c = new Shop("Coco",R.drawable.coco, clist);
+        insert(c);
+
+        ArrayList<Drink> dlist = new ArrayList<>();
+        Shop d = new Shop("DaYung's",R.drawable.da_yung_s, dlist);
+        insert(d);
+
+        ArrayList<Drink> flist = new ArrayList<>();
+        Shop f = new Shop("Fifty Lan",R.drawable.fifty_lan, flist);
+        insert(f);
+
+        ArrayList<Drink> tlist = new ArrayList<>();
+        Shop t = new Shop("TigerSugar",R.drawable.tiger_sugar, tlist);
+        insert(t);
+
+        ArrayList<Drink> qlist = new ArrayList<>();
+        Shop q = new Shop("Queenny",R.drawable.queenny, qlist);
+        insert(q);
+
+        ArrayList<Drink> jlist = new ArrayList<>();
+        Shop j = new Shop("Joly",R.drawable.joly, jlist);
+        insert(j);
     }
 }

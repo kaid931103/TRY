@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.swipetodelete.helper.DBHelper;
+import com.example.swipetodelete.helper.ShopDBHelper;
 import com.example.swipetodelete.model.Shop;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class DAODrink {
 
     // 建構子，一般的應用都不需要修改
     public DAODrink(Context context) {
-        db = DBHelper.getDatabase(context);
+        db = ShopDBHelper.getDatabase(context);
     }
 
     // 關閉資料庫，一般的應用都不需要修改

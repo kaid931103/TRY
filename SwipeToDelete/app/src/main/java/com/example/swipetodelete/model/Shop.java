@@ -12,17 +12,17 @@ public class Shop implements Parcelable {
 
     private ArrayList<Shop> shops;
 
-    public Shop(String name,int picture, ArrayList<Drink> menu){
+    public Shop(String name, int picture, ArrayList<Drink> menu) {
         this.name = name;
         this.picture = picture;
         this.menu = menu;
     }
 
-    public Shop(){
+    public Shop() {
         menu = new ArrayList<>();
     }
 
-    Shop(Parcel in) {
+    private Shop(Parcel in) {
         picture = in.readInt();
         name = in.readString();
         menu = in.createTypedArrayList(Drink.CREATOR);
@@ -54,7 +54,7 @@ public class Shop implements Parcelable {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public ArrayList<Drink> getMenu() {

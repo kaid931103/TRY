@@ -25,6 +25,7 @@ import com.example.swipetodelete.adapter.RecyclerViewAdapter;
 import com.example.swipetodelete.helper.SwipeToDeleteCallback;
 import com.example.swipetodelete.model.Drink;
 import com.example.swipetodelete.model.Shop;
+import com.example.swipetodelete.sqlite.DAOShop;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +47,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //data
+        initMenu();
+        // 建立資料庫物件
+        DAOShop shopData = new DAOShop(getApplicationContext());
+        if (shopData.getCount() == 0) {
+            shopData.initData();
+        }
+        list = shopData.getAll();
 
         //ui
         findViewById(R.id.am_tb_sort).setOnClickListener(this);
@@ -77,12 +87,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
-
-        recyclerView.setAdapter(new RecyclerViewAdapter(this,list));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, list));
+        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
 
         //function
         getPermissionsAudio();
-        initData();
         enableSwipeToDeleteAndUndo();
     }
 
@@ -93,41 +102,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void initData() {
+    private void initMenu() {
         //sort option
         sortChoices.add("A-Z");
         sortChoices.add("Z-A");
-
-        //data
-        ArrayList<Drink> mlist = new ArrayList<>();
-        Shop m = new Shop("Milk Shop",R.drawable.milk_shop, mlist);
-        list.add(m);
-
-        ArrayList<Drink> clist = new ArrayList<>();
-        Shop c = new Shop("Coco",R.drawable.coco, clist);
-        list.add(c);
-
-        ArrayList<Drink> dlist = new ArrayList<>();
-        Shop d = new Shop("DaYung's",R.drawable.da_yung_s, dlist);
-        list.add(d);
-
-        ArrayList<Drink> flist = new ArrayList<>();
-        Shop f = new Shop("Fifty Lan",R.drawable.fifty_lan, flist);
-        list.add(f);
-
-        ArrayList<Drink> tlist = new ArrayList<>();
-        Shop t = new Shop("TigerSugar",R.drawable.tiger_sugar, tlist);
-        list.add(t);
-
-        ArrayList<Drink> qlist = new ArrayList<>();
-        Shop q = new Shop("Queenny",R.drawable.queenny, qlist);
-        list.add(q);
-
-        ArrayList<Drink> jlist = new ArrayList<>();
-        Shop j = new Shop("Joly",R.drawable.joly, jlist);
-        list.add(j);
-
-        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
     }
 
     private void enableSwipeToDeleteAndUndo() {
@@ -138,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 final int position = viewHolder.getAdapterPosition();
                 assert mAdapter != null;
                 final Shop item = mAdapter.getData().get(position);
-                Log.d("xxx",String.valueOf(item));
+                Log.d("xxx", String.valueOf(item));
 
                 mAdapter.removeItem(position);
 
@@ -181,13 +159,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 int i = s1.name.compareTo(s2.name);
                                                 if (i == 0) {
                                                     return 0;
-                                                }else{
+                                                } else {
                                                     return i;
                                                 }
                                             }
                                         });
                                         assert recyclerView.getAdapter() != null;
-                                        recyclerView.getAdapter().notifyDataSetChanged();                                        break;
+                                        recyclerView.getAdapter().notifyDataSetChanged();
+                                        break;
                                     case "Z-A":
                                         Collections.reverse(list);
                                         assert recyclerView.getAdapter() != null;

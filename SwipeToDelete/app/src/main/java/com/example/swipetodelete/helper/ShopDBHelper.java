@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.swipetodelete.sqlite.DAOShop;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class ShopDBHelper extends SQLiteOpenHelper {
 
     // 資料庫名稱
     private static final String DATABASE_NAME = "mydata.db";
@@ -17,14 +17,14 @@ public class DBHelper extends SQLiteOpenHelper {
     private static SQLiteDatabase database;
 
     // 建構子，在一般的應用都不需要修改
-    private DBHelper(Context context, String name, CursorFactory factory, int version) {
+    private ShopDBHelper(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     // 需要資料庫的元件呼叫這個方法，這個方法在一般的應用都不需要修改
     public static SQLiteDatabase getDatabase(Context context) {
         if (database == null || !database.isOpen()) {
-            database = new DBHelper(context, DATABASE_NAME, null, VERSION).getWritableDatabase();
+            database = new ShopDBHelper(context, DATABASE_NAME, null, VERSION).getWritableDatabase();
         }
         return database;
     }

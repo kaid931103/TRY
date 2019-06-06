@@ -6,19 +6,26 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class Drink implements Parcelable {
+    private int position;
     private String drinkName;
     private String midPrice;
     private String bigPrice;
 
     private ArrayList<Drink> drinks;
 
-    public Drink(String drinkName, String midPrice, String bigPrice){
+    public Drink(int position,String drinkName, String midPrice, String bigPrice){
+        this.position = position;
         this.drinkName = drinkName;
         this.midPrice = midPrice;
         this.bigPrice = bigPrice;
     }
 
+    public Drink(){
+//        drinks = new ArrayList<>();
+    }
+
     private Drink(Parcel in) {
+        position = in.readInt();
         drinkName = in.readString();
         midPrice = in.readString();
         bigPrice = in.readString();
@@ -69,6 +76,14 @@ public class Drink implements Parcelable {
         this.drinks = drinks;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -76,6 +91,7 @@ public class Drink implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(position);
         dest.writeString(drinkName);
         dest.writeString(midPrice);
         dest.writeString(bigPrice);

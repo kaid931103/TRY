@@ -5,9 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.example.swipetodelete.helper.ShopDBHelper;
-import com.example.swipetodelete.model.Shop;
+import com.example.swipetodelete.helper.DBHelper;
+import com.example.swipetodelete.model.Drink;
 
 import java.util.ArrayList;
 
@@ -19,26 +18,28 @@ public class DAODrink {
     private static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
-    private static final String SHOP_COLUMN = "shop";
+    private static final String SHOP_COLUMN = "num";
     private static final String NAME_COLUMN = "name";
     private static final String MIDPRICE_COLUMN = "midPrice";
     private static final String BIGPRICE_COLUMN = "bigPrice";
 
-    // 使用上面宣告的變數建立表格的SQL指令
-    public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + " ( " +
-                    KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    SHOP_COLUMN + "TEXT NOT NULL, " +
-                    NAME_COLUMN + " TEXT NOT NULL, " +
-                    MIDPRICE_COLUMN + "TEXT NOT NULL," +
-                    BIGPRICE_COLUMN + "TEXT NOT NULL)";
+    public static String CREATE_TABLE() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Create Table " + TABLE_NAME + " ( ");
+        sb.append(KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , ");
+        sb.append(SHOP_COLUMN + " TEXT NOT NULL, ");
+        sb.append(NAME_COLUMN + " TEXT NOT NULL, ");
+        sb.append(MIDPRICE_COLUMN + " TEXT NOT NULL, ");
+        sb.append(BIGPRICE_COLUMN + " TEXT NOT NULL) ");
+        return sb.toString();
+    }
 
     // 資料庫物件
     private SQLiteDatabase db;
 
     // 建構子，一般的應用都不需要修改
     public DAODrink(Context context) {
-        db = ShopDBHelper.getDatabase(context);
+        db = DBHelper.getDatabase(context);
     }
 
     // 關閉資料庫，一般的應用都不需要修改
@@ -46,32 +47,22 @@ public class DAODrink {
         db.close();
     }
 
-    // 新增參數指定的物件
-    public boolean insert(Shop item, int position) {
-        // 建立準備新增資料的ContentValues物件
+    public boolean insert(Drink item) {
+
         ContentValues cv = new ContentValues();
 
-        // 加入ContentValues物件包裝的新增資料
-        // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(SHOP_COLUMN, item.getName());
-        cv.put(NAME_COLUMN, item.getMenu().get(position).getDrinkName());
-        cv.put(MIDPRICE_COLUMN, item.getMenu().get(position).getMidPrice());
-        cv.put(BIGPRICE_COLUMN, item.getMenu().get(position).getBigPrice());
+        cv.put(SHOP_COLUMN, item.getPosition());
+        cv.put(NAME_COLUMN, item.getDrinkName());
+        cv.put(MIDPRICE_COLUMN, item.getMidPrice());
+        cv.put(BIGPRICE_COLUMN, item.getBigPrice());
 
-        return db.insert(TABLE_NAME, null, cv) > 0;
-    }
-
-    // 刪除參數指定編號的資料
-    public boolean delete(long id) {
-        // 設定條件為編號，格式為「欄位名稱=資料」
-        String where = KEY_ID + "=" + id;
-        // 刪除指定編號資料並回傳刪除是否成功
-        return db.delete(TABLE_NAME, where, null) > 0;
+        long id =  db.insert(TABLE_NAME, null, cv);
+        return id > 0;
     }
 
     // 讀取所有記事資料
-    public ArrayList<Shop> getAll() {
-        ArrayList<Shop> result = new ArrayList<>();
+    public ArrayList<Drink> getAll() {
+        ArrayList<Drink> result = new ArrayList<>();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, KEY_ID + " desc", null);
 
         while (cursor.moveToNext()) {
@@ -81,52 +72,15 @@ public class DAODrink {
         return result;
     }
 
-    // 取得指定編號的資料物件
-    public Shop get(long id) {
-        // 準備回傳結果用的物件
-        Shop item = new Shop();
-        // 使用編號為查詢條件
-        String where = KEY_ID + "=" + id;
-        // 執行查詢
-        Cursor result = db.query(TABLE_NAME, null, where, null, null, null, null, null);
-
-        // 如果有查詢結果
-        if (result.moveToFirst()) {
-            // 讀取包裝一筆資料的物件
-            item = getRecord(result);
-        }
-        // 關閉Cursor物件
-        result.close();
-        // 回傳結果
-        return item;
-    }
-
-    // 取得最新的本地端id
-    public Shop getLast() {
-        // 準備回傳結果用的物件
-        Shop item = new Shop();
-        // 使用編號為查詢條件
-        // 執行查詢
-        Cursor result = db.query(TABLE_NAME, null, null, null, null, null, KEY_ID + " desc", "1");
-
-        // 如果有查詢結果
-        if (result.moveToFirst()) {
-            // 讀取包裝一筆資料的物件
-            item = getRecord(result);
-        }
-        // 關閉Cursor物件
-        result.close();
-        // 回傳結果
-        return item;
-    }
-
     // 把Cursor目前的資料包裝為物件
-    private Shop getRecord(Cursor cursor) {
+    private Drink getRecord(Cursor cursor) {
         // 準備回傳結果用的物件
-        Shop result = new Shop();
+        Drink result = new Drink();
 
-        result.setName(cursor.getString(1));
-        result.setPicture(cursor.getInt(2));
+        result.setPosition(cursor.getInt(1));
+        result.setDrinkName(cursor.getString(2));
+        result.setMidPrice(cursor.getString(3));
+        result.setBigPrice(cursor.getString(4));
 
         // 回傳結果
         return result;
@@ -141,5 +95,112 @@ public class DAODrink {
             result = cursor.getInt(0);
         }
         return result;
+    }
+
+    public void initData() {
+
+        //data
+        Drink m1 = new Drink(6,"珍珠紅茶拿鐵", "55", "65");
+        Drink m2 = new Drink(6,"布丁紅茶拿鐵", "55", "65");
+        Drink m3 = new Drink(6,"仙草凍紅茶拿鐵", "55", "65");
+        Drink m4 = new Drink(6,"手炒黑糖鮮奶", "60", "80");
+        Drink m5 = new Drink(6,"珍珠紅茶鮮豆奶", "55", "65");
+        Drink m6 = new Drink(6,"大甲芋頭鮮奶", "65", "85");
+        insert(m1);
+        insert(m2);
+        insert(m3);
+        insert(m4);
+        insert(m5);
+        insert(m6);
+
+        Drink c1 = new Drink(5,"紅茶拿鐵咖啡", " ", "60");
+        Drink c2 = new Drink(5,"紅豆珍珠鮮奶茶", " ", "55");
+        Drink c3 = new Drink(5,"珍珠鮮奶茶", " ", "55");
+        Drink c4 = new Drink(5,"布丁奶茶", " ", "40");
+        Drink c5 = new Drink(5,"仙草凍奶茶", " ", "40");
+        Drink c6 = new Drink(5,"珍珠奶茶", "", "40");
+        Drink c7 = new Drink(5,"冬瓜鮮奶茶", "50", "");
+        insert(c1);
+        insert(c2);
+        insert(c3);
+        insert(c4);
+        insert(c5);
+        insert(c6);
+        insert(c7);
+
+        Drink d1 = new Drink(4,"珍珠鮮奶茶", "45", "55");
+        Drink d2 = new Drink(4,"仙草凍奶茶", "35", "45");
+        Drink d3 = new Drink(4,"珍珠奶茶", "35", "45");
+        Drink d4 = new Drink(4,"冬瓜鮮奶茶", "45", "55");
+        Drink d5 = new Drink(4,"觀音拿鐵", "50", "60");
+        Drink d6 = new Drink(4,"蘋果多輕飲", " ", "70");
+        Drink d7 = new Drink(4,"蔓越莓冰醋", " ", "50");
+        insert(d1);
+        insert(d2);
+        insert(d3);
+        insert(d4);
+        insert(d5);
+        insert(d6);
+        insert(d7);
+
+        Drink f1 = new Drink(3,"波霸奶茶", "40", "50");
+        Drink f2 = new Drink(3,"珍珠奶茶", "40", "50");
+        Drink f3 = new Drink(3,"珍珠紅茶拿鐵", "55", "65");
+        Drink f4 = new Drink(3,"布丁奶茶", "50", "60");
+        Drink f5 = new Drink(3,"四季春+珍波椰", "30", "40");
+        Drink f6 = new Drink(3,"黃金烏龍拿鐵", "50", "60");
+        Drink f7 = new Drink(3,"波霸烏龍奶茶", "40", "50");
+        insert(f1);
+        insert(f2);
+        insert(f3);
+        insert(f4);
+        insert(f5);
+        insert(f6);
+        insert(f7);
+
+        Drink t1 = new Drink(2,"波霸厚鮮奶", " ", "55");
+        Drink t2 = new Drink(2,"波霸醇紅茶", " ", "40");
+        Drink t3 = new Drink(2,"波霸醇綠茶", " ", "40");
+        Drink t4 = new Drink(2,"紅茶拿鐵", " ", "45");
+        Drink t5 = new Drink(2,"珍珠鮮奶", " ", "55");
+        Drink t6 = new Drink(2,"綠茶拿鐵", " ", "45");
+        Drink t7 = new Drink(2,"虎虎生風厚鮮奶", " ", "55");
+        insert(t1);
+        insert(t2);
+        insert(t3);
+        insert(t4);
+        insert(t5);
+        insert(t6);
+        insert(t7);
+
+        Drink q1 = new Drink(1,"魚池老紅茶", " ", "40");
+        Drink q2 = new Drink(1,"紅烏龍茶", " ", "45");
+        Drink q3 = new Drink(1,"紅烏龍奶茶", " ", "55");
+        Drink q4 = new Drink(1,"翠玉紅茶", " ", "50");
+        Drink q5 = new Drink(1,"薩蘭奶茶", " ", "55");
+        Drink q6 = new Drink(1,"龍眼花茶", " ", "40");
+        Drink q7 = new Drink(1,"蕎麥黑豆抹茶", " ", "45");
+        insert(q1);
+        insert(q2);
+        insert(q3);
+        insert(q4);
+        insert(q5);
+        insert(q6);
+        insert(q7);
+
+        Drink j1 = new Drink(0,"珍珠伯爵歐雷", " ", "65");
+        Drink j2 = new Drink(0,"觀音歐雷", " ", "50");
+        Drink j3 = new Drink(0,"洛神花茶", " ", "50");
+        Drink j4 = new Drink(0,"極品莫希托", " ", "70");
+        Drink j5 = new Drink(0,"柚檸萊姆", " ", "70");
+        Drink j6 = new Drink(0,"森式可可", " ", "60");
+        Drink j7 = new Drink(0,"泰式奶茶", " ", "50");
+        insert(j1);
+        insert(j2);
+        insert(j3);
+        insert(j4);
+        insert(j5);
+        insert(j6);
+        insert(j7);
     }
 }

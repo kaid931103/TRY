@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //data
     private ArrayList<String> sortChoices = new ArrayList<>();
-    private ArrayList<Shop> list = new ArrayList<>();
+    private ArrayList<Shop> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //data
+        list = new ArrayList<>();
         initMenu();
         // 建立資料庫物件
         shopData = new DAOShop(getApplicationContext());

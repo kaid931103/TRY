@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.swipetodelete.R;
-import com.example.swipetodelete.helper.ShopDBHelper;
+import com.example.swipetodelete.helper.DBHelper;
 import com.example.swipetodelete.model.Drink;
 import com.example.swipetodelete.model.Shop;
 
@@ -36,7 +36,7 @@ public class DAOShop {
 
     // 建構子，一般的應用都不需要修改
     public DAOShop(Context context) {
-        db = ShopDBHelper.getDatabase(context);
+        db = DBHelper.getDatabase(context);
     }
 
     // 關閉資料庫，一般的應用都不需要修改

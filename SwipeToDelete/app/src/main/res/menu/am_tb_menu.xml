@@ -8,7 +8,7 @@
         app:showAsAction="collapseActionView" />
 
     <item
-        android:id="@+id/am_tb_option"
-        android:title="@string/option"
+        android:id="@+id/am_tb_add_new_shop"
+        android:title="@string/add_new_shop"
         app:showAsAction="collapseActionView" />
 </menu>

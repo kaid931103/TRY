@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.example.swipetodelete.R;
 
-public class AddDrinkItemActivity extends AppCompatActivity {
+public class AddShopItemActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_drink_item);
+        setContentView(R.layout.activity_add_shop_item);
     }
 }

@@ -11,7 +11,7 @@ public class QuestionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_drink_item);
+        setContentView(R.layout.activity_question);
 
         TextView tv1 = findViewById(R.id.text_view_1);
         TextView tv2 = findViewById(R.id.text_view_2);

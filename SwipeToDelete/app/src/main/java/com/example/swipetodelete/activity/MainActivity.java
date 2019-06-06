@@ -65,11 +65,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.am_tb_option:
+                    case R.id.am_tb_add_new_shop:
+                        Intent add_new_shop = new Intent(MainActivity.this, AddShopItemActivity.class);
+                        startActivity(add_new_shop);
                         break;
                     case R.id.am_tb_setting:
-                        Intent intent = new Intent(MainActivity.this, MusicSettingActivity.class);
-                        startActivity(intent);
+                        Intent setting = new Intent(MainActivity.this, MusicSettingActivity.class);
+                        startActivity(setting);
                         break;
                 }
                 return false;

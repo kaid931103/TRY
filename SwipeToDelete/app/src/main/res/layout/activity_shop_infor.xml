@@ -30,6 +30,16 @@
             android:textColor="@android:color/white"
             android:textSize="23sp"
             tools:ignore="RtlSymmetry" />
+
+        <Button
+            android:id="@+id/asi_bt_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/bt_select_add"
+            tools:ignore="RtlHardcoded" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

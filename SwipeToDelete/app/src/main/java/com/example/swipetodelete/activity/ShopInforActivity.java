@@ -172,9 +172,12 @@ public class ShopInforActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.asi_bt_back:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                Intent back = new Intent(this, MainActivity.class);
+                startActivity(back);
                 break;
+            case R.id.asi_bt_add:
+                Intent add = new Intent(this, AddDrinkItemActivity.class);
+                startActivity(add);
         }
     }
 }

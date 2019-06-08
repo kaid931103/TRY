@@ -25,6 +25,17 @@
         <activity android:name=".activity.MusicSettingActivity" />
         <activity android:name=".activity.QuestionActivity" />
         <activity android:name=".activity.ShopInforActivity" />
+        <receiver
+            android:name=".activity.AutoReceiver"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>

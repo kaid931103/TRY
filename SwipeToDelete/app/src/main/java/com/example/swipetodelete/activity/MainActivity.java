@@ -1,12 +1,15 @@
 package com.example.swipetodelete.activity;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -95,6 +98,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //function
         getPermissionsAudio();
         enableSwipeToDeleteAndUndo();
+
+        //推播
+        Intent intent = new Intent(this, AutoReceiver.class);
+        intent.setAction("VIDEO_TIMER");
+        //PendingIntent是廣播
+        PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime(), 10 * 1000, sender);
+
+
     }
 
     private void getPermissionsAudio() {
